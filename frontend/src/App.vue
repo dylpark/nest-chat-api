@@ -3,11 +3,13 @@
 <template>
   <header></header>
   <main>
-    <div class="bg-blue-500">
-      <div class="text-white">It's over Anakin, <br />I have the high ground.</div>
-    </div>
-    <div class="bg-gray-200">
-      <div class="text-white">You underestimate my power!</div>
+    <div class="flex flex-col items-center justify-center h-screen w-screen gap-2 bg-gray-100">
+      <div class="flex w-1/4 rounded-xl p-4 bg-gray-600 mr-10">
+        <div class="text-white">It's over Anakin, <br />I have the high ground.</div>
+      </div>
+      <div class="flex w-1/4 rounded-xl p-4 bg-blue-500 ml-10">
+        <div class="text-white">You underestimate my power!</div>
+      </div>
     </div>
   </main>
 </template>
