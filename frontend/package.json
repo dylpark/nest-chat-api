@@ -12,6 +12,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "pusher-js": "^8.2.0",
     "vue": "^3.3.4"
   },
   "devDependencies": {
