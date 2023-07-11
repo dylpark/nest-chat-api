@@ -8,11 +8,12 @@ export default {
     const username = ref('username');
     const messages = ref([]);
     const message = ref('');
+    const PUSHER_KEY = import.meta.env.VITE_PUSHER_KEY;
 
     onMounted(() => {
       Pusher.logToConsole = true;
 
-      const pusher = new Pusher('4318d6f49f4a824002c6', {
+      const pusher = new Pusher(PUSHER_KEY, {
       cluster: 'ap4'
     });
 
