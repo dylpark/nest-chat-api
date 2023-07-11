@@ -5,7 +5,7 @@ import Pusher from 'pusher-js'
 export default {
   name: 'App',
   setup() {
-    const username = ref<string>('username')
+    const username = ref<string>('Enter username')
     const messages = ref<Array<string>>([])
     const message = ref<string>('')
     const PUSHER_KEY = import.meta.env.VITE_PUSHER_KEY
@@ -47,32 +47,34 @@ export default {
 </script>
 
 <template>
-  <div class="flex flex-col items-center w-screen h-screen lg:w-1/2 bg-red-300">
-    <div class="flex flex-col bg-blue-300">
-      <div class="flex items-center p-6 text-decoration-none border-b">
-        <input class="" v-model="username" />
+  <div
+    class="flex flex-col items-center justify-center w-full h-screen bg-gray-900 py-11 px-11 lg:px-96 gap-4"
+  >
+    <div class="flex flex-col rounded-xl h-full w-full bg-white">
+      <div
+        class="flex items-center rounded-t-xl p-6 text-decoration-none bg-gray-300 drop-shadow-md"
+      >
+        <input class="bg-gray-300 text-gray-900 w-full p-1" v-model="username" />
       </div>
-      <div class="scrollarea">
-        <div class="" v-for="message in messages" :key="message">
-          <div class="">{{ message }}</div>
-          <div class="flex w-full items-center justify-between">
-            <span class="text-xs text-gray-500">{{ username }}</span>
+      <div class="overflow-x-hidden overflow-y-scroll m-6">
+        <div class="flex flex-col mt-4" v-for="message in messages" :key="message">
+          <div
+            class="flex justify-start items-center h-auto p-4 shadow-lg bg-blue-500 text-white rounded-xl break-words whitespace-pre-wrap"
+          >
+            {{ message }}
+          </div>
+          <div class="flex w-full items-center justify-between ml-3 mt-1">
+            <span class="text-xs text-gray-400">{{ username }}</span>
           </div>
         </div>
       </div>
     </div>
-    <form @submit.prevent="submit">
+    <form class="block w-full" @submit.prevent="submit">
       <input
-        class="bg-white text-gray-800 rounded"
+        class="bg-white text-gray-900 rounded-xl w-full min-h-12 h-auto p-6"
         placeholder="Write a message"
         v-model="message"
       />
     </form>
   </div>
 </template>
-
-<style>
-.scrollarea {
-  min-height: 500px;
-}
-</style>
