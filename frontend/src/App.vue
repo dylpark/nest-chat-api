@@ -1,39 +1,39 @@
-<script lang="js">
-import {ref, onMounted} from 'vue';
-import Pusher from 'pusher-js';
+<script lang="ts">
+import { ref, onMounted } from 'vue'
+import Pusher from 'pusher-js'
 
 export default {
   name: 'App',
   setup() {
-    const username = ref('username');
-    const messages = ref([]);
-    const message = ref('');
-    const PUSHER_KEY = import.meta.env.VITE_PUSHER_KEY;
+    const username = ref<string>('username')
+    const messages = ref<Array<string>>([])
+    const message = ref<string>('')
+    const PUSHER_KEY = import.meta.env.VITE_PUSHER_KEY
 
     onMounted(() => {
-      Pusher.logToConsole = true;
+      Pusher.logToConsole = true
 
       const pusher = new Pusher(PUSHER_KEY, {
-      cluster: 'ap4'
-    });
+        cluster: 'ap4'
+      })
 
-      const channel = pusher.subscribe('chat');
-      channel.bind('message', data => {
-        messages.value.push(data);
-      });
+      const channel = pusher.subscribe('chat')
+      channel.bind('message', (data: { message: string }) => {
+        messages.value.push(data.message)
+      })
     })
 
     const submit = async () => {
       await fetch('http://localhost:8000/api/messages', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           username: username.value,
           message: message.value
         })
       })
 
-      message.value = '';
+      message.value = ''
     }
 
     return {
@@ -54,9 +54,9 @@ export default {
       </div>
       <div class="scrollarea">
         <div class="" v-for="message in messages" :key="message">
-          <div class="">{{ message.message }}</div>
+          <div class="">{{ message }}</div>
           <div class="flex w-full items-center justify-between">
-            <span class="text-xs text-gray-500">{{ message.username }}</span>
+            <span class="text-xs text-gray-500">{{ username }}</span>
           </div>
         </div>
       </div>
