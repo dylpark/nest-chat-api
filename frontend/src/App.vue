@@ -61,10 +61,10 @@ export default {
       >
         <input class="bg-gray-300 text-gray-900 w-full p-1" v-model="username" />
       </div>
-      <div class="overflow-x-hidden overflow-y-scroll m-6">
+      <div class="overflow-x-hidden m-6 hidden-bar">
         <div class="flex flex-col mt-4" v-for="message in messages" :key="message">
           <div
-            class="flex justify-start items-center h-auto p-4 shadow-lg bg-blue-500 text-white rounded-xl break-words whitespace-pre-wrap"
+            class="flex justify-start items-center h-auto p-4 shadow-sm bg-blue-500 text-white rounded-xl break-words whitespace-pre-wrap"
           >
             {{ message.message }}
           </div>
@@ -83,3 +83,15 @@ export default {
     </form>
   </div>
 </template>
+
+<style>
+.hidden-bar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-y: scroll;
+}
+
+.hidden-bar::-webkit-scrollbar {
+  display: none;
+}
+</style>
