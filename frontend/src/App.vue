@@ -2,13 +2,18 @@
 import { ref, onMounted } from 'vue'
 import Pusher from 'pusher-js'
 
+interface Message {
+  message: string
+  username: string
+}
+
 export default {
   name: 'App',
   setup() {
     const username = ref<string>('Enter username')
-    const messages = ref<Array<string>>([])
+    const messages = ref<Message[]>([])
     const message = ref<string>('')
-    const PUSHER_KEY = import.meta.env.VITE_PUSHER_KEY
+    const PUSHER_KEY = import.meta.env.VITE_PUSHER_KEY as string
 
     onMounted(() => {
       Pusher.logToConsole = true
@@ -18,8 +23,8 @@ export default {
       })
 
       const channel = pusher.subscribe('chat')
-      channel.bind('message', (data: { message: string }) => {
-        messages.value.push(data.message)
+      channel.bind('message', (data: Message) => {
+        messages.value.push(data)
       })
     })
 
@@ -61,10 +66,10 @@ export default {
           <div
             class="flex justify-start items-center h-auto p-4 shadow-lg bg-blue-500 text-white rounded-xl break-words whitespace-pre-wrap"
           >
-            {{ message }}
+            {{ message.message }}
           </div>
           <div class="flex w-full items-center justify-between ml-3 mt-1">
-            <span class="text-xs text-gray-400">{{ username }}</span>
+            <span class="text-xs text-gray-400">{{ message.username }}</span>
           </div>
         </div>
       </div>
